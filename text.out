@@ -1,18 +1,29 @@
-//Paragraph
-Not many people like to read heaps of boring syntax rules when they’re picking up a new language, so we’re going to cheat. In this section, we’ll hit some of the highlights the stuff you’ll just need to know if you’re going to write Ruby programs. Later, in Chapter 22, which begins on page 325, we’ll go into all the gory details.
+Изучение любого языка программирования удобно начинать с программы вывода обычного сообщения. 
 
-//Paragraph
-Let’s start with a simple Ruby program. We’ll write a method that returns a cheery, personalized greeting. We’ll then invoke that method a couple of times:
+# example пример 1
+package chapt01;
 
-//Listing
-def say_goodnight(name)
-    result = "Good night, " + name
-    return result
-end
-# Time for bed...
-puts say_goodnight("John-Boy")
-puts say_goodnight("Mary-Ellen")
+public class First {
+	public static void main(String[] args) {
+    // вывод строк
+	    System.out.print("Мустанг ");
+	    System.out.println("уже здесь!");
+	}
+}
+#end
 
-//Paragraph
-As the example shows, Ruby syntax is clean. You don’t need semicolons at the ends of statements as long as you put each statement on a separate line. Ruby comments start with a # character and run to the end of the line. Code layout is pretty much up to you; indentation is not significant (but using two-character indentation will make you friends in the community if you plan on distributing your code).
+В следующем примере то же самое будет сделано с использованием метода класса, реализованного на основе простейшего применения объектно-ориентированного программирования:
 
+#example простое объектно-ориентированное приложение :
+FirstProgram.java */
+package by.bsu.simple;
+
+public class FirstProgram {
+	public static void main(String[] args) {
+    //объявление и создание объекта firstObject
+	 MustangAction firstObject = new MustangAction ();
+    //вызов метода, содержащего вывод строки
+	 firstObject.jumpMustang();
+	}
+}
+#end

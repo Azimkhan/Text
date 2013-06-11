@@ -1,17 +1,14 @@
 package kz.epam.azimkhan.text.parser;
 
+import kz.epam.azimkhan.text.exception.TextParseException;
+import kz.epam.azimkhan.text.exception.TextReadException;
 import kz.epam.azimkhan.text.model.Text;
-import kz.epam.azimkhan.text.parser.element.ListingParser;
-import kz.epam.azimkhan.text.parser.element.ParagraphParser;
-import kz.epam.azimkhan.text.parser.exception.TextParserException;
-import kz.epam.azimkhan.text.parser.exception.UndefinedElementException;
+import kz.epam.azimkhan.text.model.listing.Listing;
+import kz.epam.azimkhan.text.model.punctuation.Punctuation;
+import kz.epam.azimkhan.text.model.word.Word;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import static kz.epam.azimkhan.text.reader.TextReader.read;
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,112 +22,58 @@ public class TextParser {
      */
     private File file;
 
-    /**
-     * List of text element parsers
-     */
-    private Set<TextElementParser> elementParsers = new HashSet<TextElementParser>();
+    private static TextParser instance;
 
-    {
-        this.elementParsers.add(new ParagraphParser());
-        this.elementParsers.add(new ListingParser());
-    }
 
     /**
-     * Constructor
-     * @param file a file to read from
+     * Singleton
      */
-    public TextParser(File file){
-        this.file = file;
+    private TextParser(){
+
     }
+
+    public static TextParser getInstance(){
+        if(instance == null){
+            instance = new TextParser();
+        }
+
+        return instance;
+    }
+
 
     /**
      *
      * @return parsed text
-     * @throws TextParserException
+     * @throws kz.epam.azimkhan.text.exception.TextParseException
      */
-    public Text parse() throws TextParserException{
+    public Text parse(String filename) throws TextParseException, TextReadException{
 
         Text text = new Text();
-        FileReader fr = null;
-        BufferedReader br = null;
+        String fileContent = read(filename);
+        Pattern pattern = Pattern.compile("(?<word>[\\wа-яёЁА-Я']+)?(?<punc>[\\W\\n\\r\\t])?(?<listing>#\\s*example(?:[\\w\\W]+?#\\s*end))?");
+        Matcher matcher = pattern.matcher(fileContent);
 
-        try{
-            fr = new FileReader(this.file);
-            br = new BufferedReader(fr);
-            String buffer;
-            Pattern blockStart = Pattern.compile("\\/\\/\\s*(?<name>[a-zA-Z0-9]+)\\s*(?:\\s+(?<params>.*))?");
-            Matcher matcher = null;
-            buffer = br.readLine();
+        while(matcher.find()){
 
+            String word = matcher.group("word");
+            String punctuation = matcher.group("punc");
+            String listing = matcher.group("listing");
 
-            while(buffer != null){
+            if (word != null){
+                text.add(new Word(word.toCharArray()));
+            }
 
-                matcher = blockStart.matcher(buffer);
-                if (matcher.matches()){
-                    String elementName = matcher.group("name");
-                    String rawParams = matcher.group("params");
+            if (punctuation != null){
+                text.add(new Punctuation(punctuation.charAt(0)));
+            }
 
-                    TextElementParser elementParser = this.getParser(elementName);
-
-                    if (rawParams != null){
-                        elementParser.setRawParams(rawParams);
-                    }
-
-                    buffer = br.readLine();
-                    StringBuilder rawText = new StringBuilder();
-
-                    // while have something to parse
-                    while (buffer != null){
-                        // is it a start of new block?
-                        if (buffer.length() > 1 ){
-                            // yes
-                            if (!"//".equals(buffer.substring(0,2))){
-
-                                rawText.append(buffer + "\n");
-                            } else {
-                                break;
-                            }
-                        } else{
-                            // append chars from the buffer while new block isn't reached
-                            rawText.append(buffer);
-                        }
-
-                        // read next line
-                        buffer = br.readLine();
-                    }
-                    // Add element to text
-                    text.add(elementParser.parse(rawText.toString()));
-
-
-                } else {
-                    throw new TextParserException("Malformed block start");
-                }
-
+            if (listing != null){
+                text.add(new Listing(listing));
             }
 
 
-        } catch (IOException e){
-            //TODO: logging
-
-        }  finally {
-            try{
-                br.close();
-
-            }catch (IOException e){
-                //TODO: logging
-            }
         }
-
         return text;
     }
 
-    public TextElementParser getParser(String elementName) throws  UndefinedElementException{
-        for(TextElementParser tep : elementParsers){
-            if (tep.canParse(elementName)){
-                return tep;
-            }
-        }
-
-        throw  new UndefinedElementException(elementName);
-    }
 }

@@ -1,15 +1,12 @@
 package kz.epam.azimkhan.text.runner;
 
+import kz.epam.azimkhan.text.exception.TextParseException;
+import kz.epam.azimkhan.text.exception.TextReadException;
+import kz.epam.azimkhan.text.exception.TextWriteException;
 import kz.epam.azimkhan.text.model.Text;
-import kz.epam.azimkhan.text.model.punctuation.Punctuation;
 import kz.epam.azimkhan.text.parser.TextParser;
-import kz.epam.azimkhan.text.parser.exception.TextParserException;
-import kz.epam.azimkhan.text.parser.exception.UndefinedElementException;
-
-import java.io.File;
-import java.io.FileWriter;
+import static kz.epam.azimkhan.text.writer.TextWriter.write;
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 /**
  * Date: 07.06.13
@@ -18,36 +15,24 @@ import java.util.regex.Pattern;
 public class Runner {
     public static void main(String[] args){
 
-        File in = new File("text.in");
-        File out = new File("text.out");
-        FileWriter fw = null;
-        TextParser tp = new TextParser(in);
+        String in = "text.in";
+        String out = "text.out";
+        TextParser tp = TextParser.getInstance();
 
         try {
-            Text text = tp.parse();
-
-            fw = new FileWriter(out);
-            String str = text.toString();
-
-            fw.write(str);
+            Text text = tp.parse(in);
+            write(text,out);
 
 
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        catch (UndefinedElementException e){
-            System.err.print("Undefined element: " + e.getElementName());
-        }
+        } catch (TextReadException e) {
 
-        catch (TextParserException e) {
-            e.printStackTrace();
+        } catch (TextParseException e){
+
+        } catch (TextWriteException e){
+
         }
         finally {
-            try {
-                fw.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
 
     }

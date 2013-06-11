@@ -1,6 +1,7 @@
 package kz.epam.azimkhan.text.model.paragraph;
 
 import kz.epam.azimkhan.text.model.TextElement;
+import kz.epam.azimkhan.text.model.word.Word;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +11,25 @@ import java.util.List;
  * Time: 1:22
  */
 public class Paragraph extends TextElement {
-    private List<ParagraphElement> elements = new ArrayList<ParagraphElement>();
+    private List<TextElement> elements = new ArrayList<TextElement>();
 
-    public boolean add(ParagraphElement paragraphElement) {
-        return elements.add(paragraphElement);
+    public boolean add(TextElement TextElement) {
+        return elements.add(TextElement);
     }
 
     @Override
     public String toString(){
         StringBuilder result = new StringBuilder();
         result.append("//Paragraph\n");
-        for(ParagraphElement element : elements){
+        for(TextElement element : elements){
             result.append(element.toString());
         }
         result.append("\n");
         return result.toString();
+    }
+
+    @Override
+    public int size() {
+        return 0; //TODO !!!
     }
 }

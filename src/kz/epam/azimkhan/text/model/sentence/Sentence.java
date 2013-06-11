@@ -1,7 +1,5 @@
 package kz.epam.azimkhan.text.model.sentence;
 
-import kz.epam.azimkhan.text.model.paragraph.ParagraphElement;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +7,7 @@ import java.util.List;
  * Date: 07.06.13
  * Time: 1:22
  */
-public class Sentence extends ParagraphElement {
+public class Sentence {
     private List<SentenceElement> elements = new ArrayList<SentenceElement>();
 
     public boolean add(SentenceElement sentenceElement) {

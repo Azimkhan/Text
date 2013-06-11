@@ -9,5 +9,5 @@ import java.util.List;
  * Time: 1:21
  */
 public abstract class TextElement {
-    public abstract List<Word> getWords();
+    public abstract int size();
 }

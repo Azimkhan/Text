@@ -1,5 +1,6 @@
 package kz.epam.azimkhan.text.model.word;
 
+import kz.epam.azimkhan.text.model.TextElement;
 import kz.epam.azimkhan.text.model.sentence.SentenceElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,28 +9,37 @@ import java.util.List;
  * Date: 07.06.13
  * Time: 1:25
  */
-public final class Word extends SentenceElement{
-    private List<WordElement> elements = new ArrayList<WordElement>();
+public final class Word extends TextElement{
+    private List<Character> characters;
 
-    public boolean add(WordElement WordElement) {
-        return elements.add(WordElement);
+    public Word(){
+        characters = new ArrayList<Character>();
     }
 
+    public Word(char[] chars){
+        this();
+        if (null != chars){
+            for(int i = 0; i < chars.length; i++){
+                characters.add(chars[i]);
+            }
+        }
+    }
 
     public boolean isEmpty() {
-        return elements.isEmpty();
+        return characters.isEmpty();
     }
 
+    @Override
     public int size() {
-        return elements.size();
+        return characters.size();
     }
 
     @Override
     public String toString(){
         StringBuilder result = new StringBuilder();
 
-        for(WordElement element: elements){
-            result.append(element.toChar());
+        for(Character c: characters){
+            result.append(c);
         }
 
         return result.toString();
