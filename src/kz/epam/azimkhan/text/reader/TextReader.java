@@ -2,6 +2,7 @@ package kz.epam.azimkhan.text.reader;
 
 import kz.epam.azimkhan.text.exception.TextReadException;
 import kz.epam.azimkhan.text.model.Text;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 
@@ -21,9 +22,18 @@ public class TextReader {
         FileReader fr = null;
         String buffer = null;
         StringBuilder builder = new StringBuilder();
+        Logger logger = Logger.getRootLogger();
+
+        File file = new File(filename);
 
         try{
-            fr = new FileReader(new File(filename));
+            if (!file.exists() || !file.isFile()){
+                throw new TextReadException("Invalid input filename. Please ensure the filename is correct.");
+            }
+
+            fr = new FileReader(file);
+            logger.info(String.format("%s is opened.",file.getAbsolutePath()));
+
             char c;
             int i;
 
@@ -33,8 +43,6 @@ public class TextReader {
             }
 
 
-        } catch (FileNotFoundException e) {
-            throw new TextReadException("Input file wasn't found.");
         } catch (IOException e){
             throw new TextReadException(e.getMessage(),e.getCause());
         }
@@ -42,8 +50,9 @@ public class TextReader {
             if (fr != null){
                 try {
                     fr.close();
+                    logger.info(String.format("%s is closed.",file.getAbsolutePath()));
                 } catch (IOException e) {
-                    // TODO logging
+                    logger.error("Failed to close the file reader: " + e.getMessage());
                 }
             }
         }

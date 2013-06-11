@@ -11,12 +11,15 @@ import java.util.List;
  */
 public final class Listing extends TextElement {
 
-    // TODO: replace
+    /**
+     * Listing content
+     */
     private String content;
 
-    public Listing(){
-
-    }
+    /**
+     * Default constructor
+     */
+    public Listing(){}
 
     public Listing(String content){
         this.content = content;
@@ -28,8 +31,6 @@ public final class Listing extends TextElement {
     public void setContent(String content) {
         this.content = content;
     }
-
-
 
     @Override
     public String toString() {
