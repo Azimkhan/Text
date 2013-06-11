@@ -1,0 +1,18 @@
+//Paragraph
+Not many people like to read heaps of boring syntax rules when they’re picking up a new language, so we’re going to cheat. In this section, we’ll hit some of the highlights the stuff you’ll just need to know if you’re going to write Ruby programs. Later, in Chapter 22, which begins on page 325, we’ll go into all the gory details.
+
+//Paragraph
+Let’s start with a simple Ruby program. We’ll write a method that returns a cheery, personalized greeting. We’ll then invoke that method a couple of times:
+
+//Listing
+def say_goodnight(name)
+    result = "Good night, " + name
+    return result
+end
+# Time for bed...
+puts say_goodnight("John-Boy")
+puts say_goodnight("Mary-Ellen")
+
+//Paragraph
+As the example shows, Ruby syntax is clean. You don’t need semicolons at the ends of statements as long as you put each statement on a separate line. Ruby comments start with a # character and run to the end of the line. Code layout is pretty much up to you; indentation is not significant (but using two-character indentation will make you friends in the community if you plan on distributing your code).
+
