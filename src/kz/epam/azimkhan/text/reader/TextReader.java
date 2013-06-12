@@ -1,7 +1,7 @@
 package kz.epam.azimkhan.text.reader;
 
 import kz.epam.azimkhan.text.exception.TextReadException;
-import kz.epam.azimkhan.text.model.Text;
+import kz.epam.azimkhan.text.model.text.Text;
 import org.apache.log4j.Logger;
 
 import java.io.*;

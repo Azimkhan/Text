@@ -1,9 +1,6 @@
 package kz.epam.azimkhan.text.model.listing;
 
-import kz.epam.azimkhan.text.model.TextElement;
-import kz.epam.azimkhan.text.model.word.Word;
-
-import java.util.List;
+import kz.epam.azimkhan.text.model.text.TextElement;
 
 /**
  * Date: 07.06.13
@@ -15,11 +12,6 @@ public final class Listing extends TextElement {
      * Listing content
      */
     private String content;
-
-    /**
-     * Default constructor
-     */
-    public Listing(){}
 
     public Listing(String content){
         this.content = content;

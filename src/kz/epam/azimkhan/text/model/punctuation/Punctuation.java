@@ -1,7 +1,6 @@
 package kz.epam.azimkhan.text.model.punctuation;
 
-import kz.epam.azimkhan.text.model.TextElement;
-import kz.epam.azimkhan.text.model.sentence.SentenceElement;
+import kz.epam.azimkhan.text.model.text.TextElement;
 
 /**
  * Date: 07.06.13
@@ -23,6 +22,7 @@ public class Punctuation extends TextElement{
         this.value = value;
     }
 
+    @Override
     public String toString(){
         return String.valueOf(this.value);
     }
@@ -30,5 +30,39 @@ public class Punctuation extends TextElement{
     @Override
     public int size() {
         return 1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null ){
+            return false;
+        }
+
+        if (o.getClass().equals(String.class)){
+            String str = (String) o;
+            if (str.length() == 1){
+                return str.charAt(0) == value;
+            }
+        }
+
+        if (o.getClass().equals(Character.class)){
+            return o.equals(value);
+        }
+
+        if (o.getClass().equals(this.getClass())){
+        Punctuation that = (Punctuation) o;
+
+        if (value != that.value) return false;
+
+        return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) value;
     }
 }

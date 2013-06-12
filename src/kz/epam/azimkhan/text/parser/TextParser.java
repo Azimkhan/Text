@@ -2,7 +2,7 @@ package kz.epam.azimkhan.text.parser;
 
 import kz.epam.azimkhan.text.exception.TextParseException;
 import kz.epam.azimkhan.text.exception.TextReadException;
-import kz.epam.azimkhan.text.model.Text;
+import kz.epam.azimkhan.text.model.text.Text;
 import kz.epam.azimkhan.text.model.listing.Listing;
 import kz.epam.azimkhan.text.model.punctuation.Punctuation;
 import kz.epam.azimkhan.text.model.word.Word;
@@ -42,7 +42,7 @@ public class TextParser {
      * Returns the text parser instance
      * @return
      */
-    public static TextParser getInstance(){
+    public static synchronized TextParser getInstance(){
         if(instance == null){
             instance = new TextParser();
         }
@@ -64,8 +64,8 @@ public class TextParser {
 
         Pattern pattern = Pattern.compile("(?<word>[\\wа-яёЁА-Я']+)?(?<punc>[\\W\\n\\r\\t])?(?<listing>#\\s*example(?:[\\w\\W]+?#\\s*end))?");
         Matcher matcher = pattern.matcher(fileContent);
-
         logger.info("Parsing the text...");
+
         while(matcher.find()){
 
             String word = matcher.group("word");

@@ -1,12 +1,17 @@
-package kz.epam.azimkhan.text.model;
+package kz.epam.azimkhan.text.model.text;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
  * //TODO: ?
  */
 public class Text {
-    private LinkedList<TextElement> elements = new LinkedList<TextElement>();
+    private LinkedList<TextElement> elements;
+
+    public Text(){
+        elements = new LinkedList<TextElement>();
+    }
 
     public void addFirst(TextElement textElement) {
         elements.addFirst(textElement);
@@ -28,12 +33,9 @@ public class Text {
         return elements.size();
     }
 
-    // TODO getWords
-    // TODO wordCount
-    // TODO getSentences
-    // TODO sentenceCount
-    // TODO getLetters
-    // TODO letterCount
+    public Iterator<TextElement> iterator() {
+        return elements.iterator();
+    }
 
     @Override
     public String toString(){
