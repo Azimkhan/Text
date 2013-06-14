@@ -2,13 +2,11 @@ package kz.epam.azimkhan.text.model.word;
 
 import kz.epam.azimkhan.text.model.text.TextElement;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Date: 07.06.13
- * Time: 1:25
+ * Word
  */
 public final class Word extends TextElement{
     private List<Character> characters;
@@ -17,6 +15,10 @@ public final class Word extends TextElement{
         characters = new LinkedList<Character>();
     }
 
+    /**
+     * Construct form string
+     * @param str
+     */
     public Word(String str){
         this();
         if (str != null){
@@ -25,11 +27,19 @@ public final class Word extends TextElement{
         } }
     }
 
+    /**
+     * Construct form single character
+     * @param c
+     */
     public Word(char c){
         this();
         characters.add(c);
     }
-
+    
+    /**
+     * Construct from array of characters
+     * @param chars
+     */
     public Word(char[] chars){
         this();
         if (null != chars){
@@ -38,7 +48,11 @@ public final class Word extends TextElement{
             }
         }
     }
-
+    
+    /**
+     * Empty check
+     * @return
+     */
     public boolean isEmpty() {
         return characters.isEmpty();
     }
@@ -53,12 +67,24 @@ public final class Word extends TextElement{
         return new String(chars);
     }
 
+    /**
+     * Word length;
+     */
     @Override
-    public int size() {
+    public int length() {
         return characters.size();
     }
 
+    /**
+     * Char at position
+     */
+    public char getChar(int index){
+    	return characters.get(index);
+    }
 
+    /**
+     * Equality check
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,6 +114,7 @@ public final class Word extends TextElement{
         return false;
     }
 
+    
     @Override
     public int hashCode() {
         return characters.hashCode();

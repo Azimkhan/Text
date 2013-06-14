@@ -1,7 +1,6 @@
 package kz.epam.azimkhan.text.reader;
 
 import kz.epam.azimkhan.text.exception.TextReadException;
-import kz.epam.azimkhan.text.model.text.Text;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -18,9 +17,8 @@ public class TextReader {
      * @throws kz.epam.azimkhan.text.exception.TextReadException
      */
     public static String read(String filename) throws TextReadException {
-        Text text = new Text();
+        
         FileReader fr = null;
-        String buffer = null;
         StringBuilder builder = new StringBuilder();
         Logger logger = Logger.getRootLogger();
 

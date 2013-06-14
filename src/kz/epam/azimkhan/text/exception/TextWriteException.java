@@ -5,7 +5,10 @@ package kz.epam.azimkhan.text.exception;
  * Time: 17:37
  */
 public class TextWriteException extends Exception{
-    public TextWriteException() {
+    
+	private static final long serialVersionUID = -1742546539096117606L;
+
+	public TextWriteException() {
     }
 
     public TextWriteException(String message) {

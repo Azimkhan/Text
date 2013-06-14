@@ -5,7 +5,7 @@ import kz.epam.azimkhan.text.model.sentence.Sentence;
 import java.util.Comparator;
 
 /**
- * Sentence comparator
+ * Sentence word number comparator
  */
 public class SentenceWordNumberComparator implements Comparator<Sentence> {
 

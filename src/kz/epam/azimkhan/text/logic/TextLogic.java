@@ -117,7 +117,7 @@ public class TextLogic {
 
         while (iterator.hasNext()){
             element = iterator.next();
-            Class elementClass = element.getClass();
+            Class<? extends TextElement> elementClass = element.getClass();
             if (elementClass.equals(Punctuation.class)){
                 if (sentence.wordCount() > 0){
                     if (element.equals('!') || element.equals('.') || element.equals('?')){
@@ -136,7 +136,7 @@ public class TextLogic {
                     elements.add(element);
                 }
 
-            } else if (elementClass.equals(Word.class)){
+            } else if (!elementClass.equals(Listing.class)){
                 sentence.add(element);
             }
 

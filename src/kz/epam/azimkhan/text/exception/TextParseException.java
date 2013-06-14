@@ -5,7 +5,10 @@ package kz.epam.azimkhan.text.exception;
  * Time: 1:35
  */
 public class TextParseException extends Exception{
-    public TextParseException() {
+    
+	private static final long serialVersionUID = 3220905143384616464L;
+
+	public TextParseException() {
     }
 
     public TextParseException(String message) {

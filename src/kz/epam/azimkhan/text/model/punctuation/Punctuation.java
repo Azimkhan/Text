@@ -2,12 +2,15 @@ package kz.epam.azimkhan.text.model.punctuation;
 
 import kz.epam.azimkhan.text.model.text.TextElement;
 
+import java.io.Serializable;
+
 /**
  * Date: 07.06.13
  * Time: 1:26
  */
-public class Punctuation extends TextElement{
+public final class Punctuation extends TextElement implements Cloneable, Serializable{
 
+    private static final long serialVersionUID = 2497814412755288470L;
     private char value;
 
     public Punctuation(char value) {
@@ -28,7 +31,7 @@ public class Punctuation extends TextElement{
     }
 
     @Override
-    public int size() {
+    public int length() {
         return 1;
     }
 
@@ -65,4 +68,9 @@ public class Punctuation extends TextElement{
     public int hashCode() {
         return (int) value;
     }
+
+	@Override
+	public char getChar(int index) {
+		return value;
+	}
 }

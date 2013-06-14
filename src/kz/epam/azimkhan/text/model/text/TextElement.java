@@ -1,9 +1,21 @@
 package kz.epam.azimkhan.text.model.text;
 
+
 /**
  * Text element
  */
 public abstract class TextElement{
 
-    public abstract int size();
+	/**
+	 * Element length
+	 * @return
+	 */
+    public abstract int length();
+    
+    /**
+     * Get character on <i>index</i> position
+     * @param index
+     * @return
+     */
+    public abstract char getChar(int index);
 }

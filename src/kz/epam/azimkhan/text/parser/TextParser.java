@@ -4,12 +4,12 @@ import kz.epam.azimkhan.text.exception.TextParseException;
 import kz.epam.azimkhan.text.exception.TextReadException;
 import kz.epam.azimkhan.text.model.text.Text;
 import kz.epam.azimkhan.text.model.listing.Listing;
+import kz.epam.azimkhan.text.model.number.IntegerNumber;
+import kz.epam.azimkhan.text.model.number.RealNumber;
 import kz.epam.azimkhan.text.model.punctuation.Punctuation;
 import kz.epam.azimkhan.text.model.word.Word;
 import org.apache.log4j.Logger;
-
 import static kz.epam.azimkhan.text.reader.TextReader.read;
-import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,10 +22,6 @@ public class TextParser {
      */
 
     private Logger logger = Logger.getRootLogger();
-    /**
-     * A file containing the text
-     */
-    private File file;
 
     /**
      * Text parser instance
@@ -62,7 +58,7 @@ public class TextParser {
         String fileContent = read(filename);
         logger.info(String.format("File reading done. Got %d character(s).", fileContent.length()));
 
-        Pattern pattern = Pattern.compile("(?<word>[\\wа-яёЁА-Я']+)?(?<punc>[\\W\\n\\r\\t])?(?<listing>#\\s*example(?:[\\w\\W]+?#\\s*end))?");
+        Pattern pattern = Pattern.compile("(?<number>[1-9][0-9]*(?<floatpart>\\.[0-9]+)?)?(?<word>[\\wа-яёЁА-Я']+)?(?<punc>[\\W\\n\\r\\t])?(?<listing>#\\s*example(?:[\\w\\W]+?#\\s*end))?");
         Matcher matcher = pattern.matcher(fileContent);
         logger.info("Parsing the text...");
 
@@ -71,7 +67,18 @@ public class TextParser {
             String word = matcher.group("word");
             String punctuation = matcher.group("punc");
             String listing = matcher.group("listing");
+            String number = matcher.group("number");
 
+            if (number != null){
+            	
+            	if(matcher.group("floatpart") == null){
+            		text.add(new IntegerNumber(Integer.parseInt(number)));
+            		
+            	} else{
+            		text.add(new RealNumber(Double.parseDouble(number)));
+            	}
+            }
+            
             if (word != null){
                 text.add(new Word(word.toCharArray()));
             }
